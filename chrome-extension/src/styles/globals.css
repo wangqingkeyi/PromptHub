@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Theme color variables - Morandi palette */
+    --theme-hue: 220;
+    --theme-saturation: 70;
+    --base-font-size: 14px;
+    
+    /* Light mode colors */
+    --background: 220 14% 96%;
+    --foreground: 220 20% 25%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 25%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 25%;
+    
+    /* Morandi theme colors */
+    --primary: var(--theme-hue) var(--theme-saturation) 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 20% 25%;
+    --muted: 220 14% 92%;
+    --muted-foreground: 220 12% 50%;
+    --accent: var(--theme-hue) calc(var(--theme-saturation) * 0.5) 94%;
+    --accent-foreground: var(--theme-hue) var(--theme-saturation) 40%;
+    --destructive: 0 45% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 88%;
+    --input: 220 13% 90%;
+    --ring: var(--theme-hue) var(--theme-saturation) 55%;
+    --radius: 0.75rem;
+    
+    /* Sidebar - Light mode */
+    --sidebar: 0 0% 100%;
+    --sidebar-foreground: 220 20% 25%;
+    --sidebar-accent: var(--theme-hue) 20% 94%;
+    --sidebar-border: 220 13% 90%;
+    
+    /* Shadow */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .dark {
+    /* Dark mode colors */
+    --background: 220 20% 10%;
+    --foreground: 220 15% 92%;
+    --card: 220 18% 14%;
+    --card-foreground: 220 15% 92%;
+    --popover: 220 18% 14%;
+    --popover-foreground: 220 15% 92%;
+    
+    /* Morandi theme colors - Dark mode */
+    --primary: var(--theme-hue) var(--theme-saturation) 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 15% 16%;
+    --secondary-foreground: 220 15% 92%;
+    --muted: 220 15% 16%;
+    --muted-foreground: 220 12% 60%;
+    --accent: var(--theme-hue) 20% 20%;
+    --accent-foreground: var(--theme-hue) var(--theme-saturation) 80%;
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: var(--theme-hue) var(--theme-saturation) 55%;
+    
+    /* Sidebar - Dark mode */
+    --sidebar: 220 20% 8%;
+    --sidebar-foreground: 220 15% 92%;
+    --sidebar-accent: var(--theme-hue) 20% 18%;
+    --sidebar-border: 220 15% 18%;
+    
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    font-size: var(--base-font-size, 14px);
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    width: 700px;
+    height: 520px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  #root {
+    width: 100%;
+    height: 100%;
+  }
+  button:focus,
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+  }
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply ring-2 ring-primary/50 ring-offset-0;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/20 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/40;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.3s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.2s ease-out;
+}
+
+/* Selection */
+::selection {
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--primary));
+}
+
+/* Font rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Disable text selection */
+.select-none {
+  -webkit-user-select: none;
+  user-select: none;
+}
