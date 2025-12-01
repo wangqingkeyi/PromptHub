@@ -52,7 +52,7 @@ export function EditPromptModal({ isOpen, onClose, prompt }: EditPromptModalProp
 
   const handleSave = async () => {
     if (!title.trim() || !userPrompt.trim()) {
-      showToast(t('settings.fillComplete'), 'error');
+      showToast(t('common.requiredFields'), 'error');
       return;
     }
 

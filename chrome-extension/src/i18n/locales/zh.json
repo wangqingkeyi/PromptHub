@@ -260,7 +260,8 @@
     "error": "错误",
     "success": "成功",
     "optional": "可选",
-    "back": "返回"
+    "back": "返回",
+    "requiredFields": "请填写必填字段"
   },
   "toast": {
     "exportSuccess": "数据导出成功",

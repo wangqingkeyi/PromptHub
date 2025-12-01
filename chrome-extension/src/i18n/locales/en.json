@@ -260,7 +260,8 @@
     "error": "Error",
     "success": "Success",
     "optional": "Optional",
-    "back": "Back"
+    "back": "Back",
+    "requiredFields": "Please fill in required fields"
   },
   "toast": {
     "exportSuccess": "Data exported successfully",

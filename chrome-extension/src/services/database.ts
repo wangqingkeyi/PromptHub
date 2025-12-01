@@ -144,12 +144,19 @@ export async function seedDatabase(): Promise<void> {
   const database = await getDatabase();
   
   // Check if data already exists
-  const promptCount = await new Promise<number>((resolve) => {
+  const promptCount = await new Promise<number>((resolve, reject) => {
     const transaction = database.transaction(STORES.PROMPTS, 'readonly');
     const store = transaction.objectStore(STORES.PROMPTS);
     const request = store.count();
     request.onsuccess = () => resolve(request.result);
-    request.onerror = () => resolve(0);
+    request.onerror = () => {
+      console.error('Failed to count prompts:', request.error);
+      reject(request.error);
+    };
+  }).catch(() => {
+    // If count fails, assume database is empty and proceed with seeding
+    console.warn('Count operation failed, proceeding with seed check');
+    return 0;
   });
 
   // If no data, seed with initial data

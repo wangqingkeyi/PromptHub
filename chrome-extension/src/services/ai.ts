@@ -47,6 +47,9 @@ export interface AITestResult {
   provider: string;
 }
 
+// Anthropic API version - this may need to be updated as the API evolves
+const ANTHROPIC_API_VERSION = '2023-06-01';
+
 /**
  * Chat completion with AI model
  */
@@ -86,7 +89,7 @@ export async function chatCompletion(
   // Different auth methods for providers
   if (provider === 'anthropic') {
     headers['x-api-key'] = apiKey;
-    headers['anthropic-version'] = '2023-06-01';
+    headers['anthropic-version'] = ANTHROPIC_API_VERSION;
   } else {
     headers['Authorization'] = `Bearer ${apiKey}`;
   }

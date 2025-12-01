@@ -62,11 +62,17 @@ export const usePromptStore = create<PromptState>((set, get) => ({
         (data.userPrompt !== undefined && data.userPrompt !== currentPrompt.userPrompt);
       
       if (hasContentChange) {
-        await db.createPromptVersion(id, {
-          systemPrompt: currentPrompt.systemPrompt,
-          userPrompt: currentPrompt.userPrompt,
-          version: currentPrompt.version,
-        });
+        try {
+          await db.createPromptVersion(id, {
+            systemPrompt: currentPrompt.systemPrompt,
+            userPrompt: currentPrompt.userPrompt,
+            version: currentPrompt.version,
+          });
+        } catch (error) {
+          // Log the error but continue with the update
+          // Version creation failure shouldn't block prompt updates
+          console.error('Failed to create version record:', error);
+        }
       }
     }
     
