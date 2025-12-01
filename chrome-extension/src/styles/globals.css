@@ -22,62 +22,62 @@
     --primary-foreground: 0 0% 100%;
     --secondary: 220 14% 96%;
     --secondary-foreground: 220 20% 25%;
-    --muted: 220 14% 94%;
+    --muted: 220 14% 92%;
     --muted-foreground: 220 12% 50%;
     --accent: var(--theme-hue) calc(var(--theme-saturation) * 0.5) 94%;
     --accent-foreground: var(--theme-hue) var(--theme-saturation) 40%;
     --destructive: 0 45% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 13% 90%;
+    --border: 220 13% 88%;
     --input: 220 13% 90%;
     --ring: var(--theme-hue) var(--theme-saturation) 55%;
-    --radius: 0.5rem;
+    --radius: 0.75rem;
     
     /* Sidebar - Light mode */
     --sidebar: 0 0% 100%;
     --sidebar-foreground: 220 20% 25%;
-    --sidebar-accent: 220 14% 95%;
+    --sidebar-accent: var(--theme-hue) 20% 94%;
     --sidebar-border: 220 13% 90%;
     
     /* Shadow */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
   }
 
   .dark {
     /* Dark mode colors */
-    --background: 220 20% 12%;
-    --foreground: 220 15% 90%;
-    --card: 220 18% 15%;
-    --card-foreground: 220 15% 90%;
-    --popover: 220 18% 15%;
-    --popover-foreground: 220 15% 90%;
+    --background: 220 20% 10%;
+    --foreground: 220 15% 92%;
+    --card: 220 18% 14%;
+    --card-foreground: 220 15% 92%;
+    --popover: 220 18% 14%;
+    --popover-foreground: 220 15% 92%;
     
     /* Morandi theme colors - Dark mode */
-    --primary: var(--theme-hue) var(--theme-saturation) 50%;
+    --primary: var(--theme-hue) var(--theme-saturation) 55%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 15% 18%;
-    --secondary-foreground: 220 15% 90%;
-    --muted: 220 15% 18%;
-    --muted-foreground: 220 12% 55%;
-    --accent: var(--theme-hue) 15% 22%;
-    --accent-foreground: var(--theme-hue) var(--theme-saturation) 75%;
+    --secondary: 220 15% 16%;
+    --secondary-foreground: 220 15% 92%;
+    --muted: 220 15% 16%;
+    --muted-foreground: 220 12% 60%;
+    --accent: var(--theme-hue) 20% 20%;
+    --accent-foreground: var(--theme-hue) var(--theme-saturation) 80%;
     --destructive: 0 60% 50%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 15% 22%;
-    --input: 220 15% 22%;
-    --ring: var(--theme-hue) var(--theme-saturation) 50%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: var(--theme-hue) var(--theme-saturation) 55%;
     
     /* Sidebar - Dark mode */
-    --sidebar: 220 20% 10%;
-    --sidebar-foreground: 220 15% 90%;
-    --sidebar-accent: var(--theme-hue) 15% 20%;
-    --sidebar-border: 220 15% 20%;
+    --sidebar: 220 20% 8%;
+    --sidebar-foreground: 220 15% 92%;
+    --sidebar-accent: var(--theme-hue) 20% 18%;
+    --sidebar-border: 220 15% 18%;
     
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.4);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -91,8 +91,9 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
-    width: 600px;
-    height: 500px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    width: 700px;
+    height: 520px;
     margin: 0;
     padding: 0;
     overflow: hidden;

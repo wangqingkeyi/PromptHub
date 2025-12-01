@@ -6,7 +6,8 @@ import {
   HashIcon, 
   SettingsIcon, 
   PlusIcon,
-  MoreHorizontalIcon
+  MoreHorizontalIcon,
+  SparklesIcon
 } from 'lucide-react';
 import { useFolderStore } from '../../stores/folder.store';
 import { usePromptStore } from '../../stores/prompt.store';
@@ -33,18 +34,20 @@ function NavItem({ icon, label, count, active, onClick }: NavItemProps) {
     <button
       onClick={onClick}
       className={`
-        w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-xs
-        transition-all duration-150
+        w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
+        transition-all duration-200
         ${active
-          ? 'bg-sidebar-accent text-sidebar-foreground'
-          : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground'
+          ? 'bg-primary text-white shadow-md'
+          : 'text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-foreground'
         }
       `}
     >
-      <span className="w-4 h-4 flex items-center justify-center">{icon}</span>
-      <span className="flex-1 text-left truncate">{label}</span>
+      <span className="w-5 h-5 flex items-center justify-center">{icon}</span>
+      <span className="flex-1 text-left">{label}</span>
       {count !== undefined && (
-        <span className="text-[10px] px-1 py-0.5 rounded bg-sidebar-accent text-sidebar-foreground/60">
+        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+          active ? 'bg-white/20 text-white' : 'bg-sidebar-accent text-sidebar-foreground/60'
+        }`}>
           {count}
         </span>
       )}
@@ -65,15 +68,15 @@ function FolderItem({ folder, isActive, onSelect, onEdit }: FolderItemProps) {
       <button
         onClick={onSelect}
         className={`
-          flex-1 flex items-center gap-2 px-2 py-1.5 rounded-md text-xs
-          transition-all duration-150
+          flex-1 flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium
+          transition-all duration-200
           ${isActive
-            ? 'bg-sidebar-accent text-sidebar-foreground'
-            : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground'
+            ? 'bg-primary text-white shadow-md'
+            : 'text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-foreground'
           }
         `}
       >
-        <span className="text-sm">{folder.icon || '📁'}</span>
+        <span className="text-base">{folder.icon || '📁'}</span>
         <span className="flex-1 text-left truncate">{folder.name}</span>
       </button>
       <button
@@ -81,9 +84,9 @@ function FolderItem({ folder, isActive, onSelect, onEdit }: FolderItemProps) {
           e.stopPropagation();
           onEdit();
         }}
-        className="p-1 rounded opacity-0 group-hover:opacity-100 hover:bg-sidebar-accent transition-all"
+        className="p-1.5 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-sidebar-accent transition-all"
       >
-        <MoreHorizontalIcon className="w-3 h-3 text-sidebar-foreground/50" />
+        <MoreHorizontalIcon className="w-4 h-4 text-sidebar-foreground/50" />
       </button>
     </div>
   );
@@ -105,13 +108,23 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
   const uniqueTags = [...new Set(allTags)];
 
   return (
-    <aside className="w-36 bg-sidebar border-r border-sidebar-border flex flex-col">
+    <aside className="w-52 bg-sidebar border-r border-sidebar-border flex flex-col">
+      {/* Logo */}
+      <div className="px-4 py-4 border-b border-sidebar-border">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-md">
+            <SparklesIcon className="w-4 h-4 text-white" />
+          </div>
+          <span className="font-bold text-base text-sidebar-foreground">PromptHub</span>
+        </div>
+      </div>
+
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto px-2 py-2 space-y-0.5">
+      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
         {/* Main navigation */}
-        <div className="space-y-0.5">
+        <div className="space-y-1">
           <NavItem
-            icon={<LayoutGridIcon className="w-4 h-4" />}
+            icon={<LayoutGridIcon className="w-5 h-5" />}
             label={t('nav.allPrompts')}
             count={prompts.length}
             active={selectedFolderId === null && currentPage === 'home'}
@@ -121,7 +134,7 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
             }}
           />
           <NavItem
-            icon={<StarIcon className="w-4 h-4" />}
+            icon={<StarIcon className="w-5 h-5" />}
             label={t('nav.favorites')}
             count={favoriteCount}
             active={selectedFolderId === 'favorites' && currentPage === 'home'}
@@ -133,9 +146,9 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
         </div>
 
         {/* Folders */}
-        <div className="pt-3">
-          <div className="flex items-center justify-between px-2 mb-1">
-            <span className="text-[10px] font-semibold text-sidebar-foreground/50 uppercase tracking-wider">
+        <div className="pt-4">
+          <div className="flex items-center justify-between px-3 mb-2">
+            <span className="text-xs font-semibold text-sidebar-foreground/50 uppercase tracking-wider">
               {t('nav.folders')}
             </span>
             <button 
@@ -143,13 +156,13 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
                 setEditingFolder(null);
                 setIsFolderModalOpen(true);
               }}
-              className="p-0.5 rounded hover:bg-sidebar-accent text-sidebar-foreground/50 hover:text-primary transition-colors"
+              className="p-1 rounded-lg hover:bg-sidebar-accent text-sidebar-foreground/50 hover:text-primary transition-colors"
             >
-              <PlusIcon className="w-3 h-3" />
+              <PlusIcon className="w-4 h-4" />
             </button>
           </div>
           
-          <div className="space-y-0.5">
+          <div className="space-y-1">
             {folders.map((folder) => (
               <FolderItem
                 key={folder.id}
@@ -166,7 +179,7 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
               />
             ))}
             {folders.length === 0 && (
-              <p className="px-2 py-2 text-[10px] text-sidebar-foreground/50 text-center">
+              <p className="px-3 py-3 text-xs text-sidebar-foreground/50 text-center">
                 {t('folder.empty')}
               </p>
             )}
@@ -175,27 +188,27 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
 
         {/* Tags */}
         {uniqueTags.length > 0 && (
-          <div className="pt-3">
-            <div className="flex items-center px-2 mb-1">
-              <span className="text-[10px] font-semibold text-sidebar-foreground/50 uppercase tracking-wider">
+          <div className="pt-4">
+            <div className="flex items-center px-3 mb-2">
+              <span className="text-xs font-semibold text-sidebar-foreground/50 uppercase tracking-wider">
                 {t('nav.tags')}
               </span>
             </div>
-            <div className="flex flex-wrap gap-1 px-2">
-              {uniqueTags.slice(0, 6).map((tag) => (
+            <div className="flex flex-wrap gap-1.5 px-3">
+              {uniqueTags.slice(0, 8).map((tag) => (
                 <button
                   key={tag}
                   onClick={() => {
                     toggleFilterTag(tag);
                     if (currentPage !== 'home') onNavigate('home');
                   }}
-                  className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-medium transition-colors duration-200 ${
+                  className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
                     filterTags.includes(tag) && currentPage === 'home'
-                      ? 'bg-primary text-white'
-                      : 'bg-sidebar-accent text-sidebar-foreground/70 hover:bg-primary hover:text-white'
+                      ? 'bg-primary text-white shadow-sm'
+                      : 'bg-sidebar-accent text-sidebar-foreground/70 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  <HashIcon className="w-2 h-2" />
+                  <HashIcon className="w-3 h-3" />
                   {tag}
                 </button>
               ))}
@@ -205,16 +218,16 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
       </nav>
 
       {/* Bottom actions */}
-      <div className="p-2 border-t border-sidebar-border">
+      <div className="p-3 border-t border-sidebar-border">
         <button
           onClick={() => onNavigate('settings')}
-          className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-xs transition-colors ${
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
             currentPage === 'settings'
-              ? 'bg-sidebar-accent text-sidebar-foreground'
-              : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground'
+              ? 'bg-primary text-white shadow-md'
+              : 'text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground'
           }`}
         >
-          <SettingsIcon className="w-3 h-3" />
+          <SettingsIcon className="w-5 h-5" />
           <span>{t('header.settings')}</span>
         </button>
       </div>
